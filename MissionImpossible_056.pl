@@ -11,7 +11,6 @@ state(X,Y,_,_,A,s0):-
 	create_agents_array_with_drop(T,A),
 	submarine(X,Y).
 state(Ex1,Ey1,Ec1,Agentsleft1,Agents,result(A,S)):-
-
 	( (A=right, Ey is(Ey1+1), in_grid(Ex1,Ey), state(Ex1, Ey, Ec1, Agentsleft1,Agents, S));
 	  (A=left,  Ey is(Ey1-1), in_grid(Ex1,Ey), state(Ex1, Ey, Ec1, Agentsleft1,Agents, S));
 	  (A=up,    Ex is(Ex1-1), in_grid(Ex,Ey1), state(Ex, Ey1, Ec1, Agentsleft1,Agents, S));
@@ -19,6 +18,7 @@ state(Ex1,Ey1,Ec1,Agentsleft1,Agents,result(A,S)):-
 	  (A=carry, Ec is(Ec1+1), capacity(C), Ec=<C, carried(Ex1,Ey1,Agents,Agents1), state(Ex1, Ey1, Ec, Agentsleft1, Agents1, S));
 	  (A=drop,  Ec is(Ec1- Ec1), Agentsleft is(Agentsleft1 - Ec1), submarine(Ex1,Ey1),dropped(Ex1,Ey1,Agents,Agents1), state(Ex1, Ey1, Ec, Agentsleft, Agents1, S)));
 	( \+A=right, \+A=left, \+A=up, \+A=down, \+A=carry, \+A=drop, state(Ex1,Ey1,Ec1,Agentsleft1,Agents,S)).
+
 in_grid(X,Y):-
         X>=0,X=<3,Y>=0,Y=<3.
 
